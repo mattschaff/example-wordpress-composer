@@ -70,7 +70,7 @@ elseif ($db_url_string = getenv('JAWSDB_URL')) {
 	$url = parse_url($db_url_string);
 	define( 'DB_NAME', ltrim($url['path'], '/') );
 	define( 'DB_USER', $url['user'] );
-	define( 'DB_PASSWORD', $user['pass'] );
+	define( 'DB_PASSWORD', $url['pass'] );
 	define( 'DB_HOST', $url['host'] );
 }
 else {
