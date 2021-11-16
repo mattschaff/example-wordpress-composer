@@ -35,6 +35,10 @@ define( 'WP_POST_REVISIONS', 3 );
  */
 // HTTP is still the default scheme for now.
 
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+  $_SERVER['HTTP_HOST'] = $_SERVER['SERVER_NAME'] = 'betterwp';
+}
+
 $scheme = 'http';
 // If we have detected that the end use is HTTPS, make sure we pass that
 // through here, so <img> tags and the like don't generate mixed-mode
@@ -47,9 +51,6 @@ $site_url = getenv( 'WP_HOME' ) !== false ? getenv( 'WP_HOME' ) : $scheme . '://
 define( 'WP_HOME', $site_url );
 define( 'WP_SITEURL', $site_url . 'wp/' );
 
-/**
- * Set Database Details
- */
 /**
  * Set Database Details
  */
@@ -85,15 +86,16 @@ define( 'IS_LOCAL', getenv( 'IS_LOCAL' ) !== false ? true : false );
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         '|@B^ygfa~8=co#9eut56E1c,h};Fp|}PAO|xBi~L%nS$8.9/)%#QDO}N(!Y-E^zF');
-define('SECURE_AUTH_KEY',  '-#_zHGwIjYA]^k~oh%+(./b-5H=xZ_]~1F0;8~42x}| <-[29ScC--CxBidE<037');
-define('LOGGED_IN_KEY',    'XUwR6)&G&~g7q)L!qZ; ]D&AMZhL8-g`lW5j(3iw@ieSjqowbs)6)6@M.v+v9te6');
-define('NONCE_KEY',        '<Y%GwtqGPP^IIDUF1%b4g|stz*1S0h;&:y!elJL:9%y8j1mmWyI1+hygr>Fc{JS-');
-define('AUTH_SALT',        'T+xaTz-Gb8o7ATOm|&1ad^|EwKk$Lgg2>-r&e4NxS2E|EoA!?!t},l57O}KYdDyI');
-define('SECURE_AUTH_SALT', '7@zB<Sk&LL|j2a; q/e8:Y<t%=kD|w[~}sIz@.wz-y=):TA|Y|$o9+?@qk>AE3iF');
-define('LOGGED_IN_SALT',   '4||jkfL|%Co/4ck1-76DJ_E~jL4nP#?R&$8qD;*Uy7fctq{WhjL%wn**sugpY>Jl');
-define('NONCE_SALT',       '$WC<aor+L=-e^iV-;-4G41!mirb1aT~2niRS+7A{gE|dX/V=E+adsH(IE/(lmn|S');
+define('AUTH_KEY',         getenv( 'AUTH_KEY' ));
+define('SECURE_AUTH_KEY',  getenv( 'SECURE_AUTH_KEY' ));
+define('LOGGED_IN_KEY',    getenv( 'LOGGED_IN_KEY' ));
+define('NONCE_KEY',        getenv( 'NONCE_KEY' ));
+define('AUTH_SALT',        getenv( 'AUTH_SALT' ));
+define('SECURE_AUTH_SALT', getenv( 'SECURE_AUTH_SALT' ));
+define('LOGGED_IN_SALT',   getenv( 'LOGGED_IN_SALT' ));
+define('NONCE_SALT',       getenv( 'NONCE_SALT' ));
 
+require_once(dirname( __FILE__ ) . '/s3-config.php');
 
 /*
 * Define wp-content directory outside of WordPress core directory
