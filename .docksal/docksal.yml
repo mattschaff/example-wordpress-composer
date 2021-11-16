@@ -1,0 +1,6 @@
+version: "2.1"
+services:
+  cli:
+    environment:
+      # Add $_ENV variable so both requests and drush know to load the correct settings.php file
+      - DOCKSAL_LOCAL=true
