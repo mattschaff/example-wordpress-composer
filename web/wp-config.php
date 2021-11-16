@@ -65,6 +65,14 @@ if (isset($_SERVER['DOCKSAL_LOCAL'])) {
 		$_SERVER['HTTPS'] = 'on';
 	}
 }
+// Heroku settings.
+elseif ($db_url_string = getenv('JAWSDB_URL')) {
+	$url = parse_url($db_url_string);
+	define( 'DB_NAME', ltrim($url['path'], '/') );
+	define( 'DB_USER', $url['user'] );
+	define( 'DB_PASSWORD', $user['pass'] );
+	define( 'DB_HOST', $url['host'] );
+}
 else {
 	define( 'DB_NAME', getenv( 'DB_NAME' ) );
 	define( 'DB_USER', getenv( 'DB_USER' ) );
